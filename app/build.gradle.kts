@@ -62,4 +62,13 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-viewmodel-compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    // https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-runtime-compose
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
+    // https://mvnrepository.com/artifact/androidx.compose.material/material-icons-extended
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+
+
 }

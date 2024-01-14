@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
             val timerState by viewModel.timerState.collectAsStateWithLifecycle();
             val stopWatchText by viewModel.stopWatchText.collectAsStateWithLifecycle();
 
-            Scaffold (
+            Scaffold ( // material의 일종으로 앱의 레이아웃 편하게 구성하기 위한 클래스
                 timeText = {
                     TimeText(
                         timeTextStyle = TimeTextDefaults.timeTextStyle(
@@ -72,8 +72,8 @@ class MainActivity : ComponentActivity() {
                         )
                     )
                 },
-                vignette = {
-                    Vignette(vignettePosition = VignettePosition.TopAndBottom)
+                vignette = { // 가장 자리를 어둡게
+                    Vignette(vignettePosition = VignettePosition.TopAndBottom) // 상,하단의 그림자 효과
                 }
             ) {
                 StopWatchScreen(
@@ -94,7 +94,7 @@ class MainActivity : ComponentActivity() {
         text: String,
         onToggleRunning: () -> Unit,
         onReset: () -> Unit,
-        modifier: Modifier = Modifier
+        modifier: Modifier = Modifier // 레이아웃 스타일 지정
     ) {
         Column(
             modifier = modifier,
@@ -139,4 +139,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-

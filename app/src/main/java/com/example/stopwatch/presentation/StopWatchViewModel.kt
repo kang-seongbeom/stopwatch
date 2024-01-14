@@ -21,7 +21,7 @@ class StopWatchViewModel: ViewModel() {
 
     private val _elapsedTime = MutableStateFlow(0L);
     private val _timerState = MutableStateFlow(TimerState.RESET);
-    val timerState = _timerState.asStateFlow();
+    val timerState = _timerState.asStateFlow(); // MainActivity에서 UI의 상태를 변경하기 위해 사용
 
     // 데이터 변환 intermediate
     private val formatter = DateTimeFormatter.ofPattern("HH:mm:ss:SSS");
@@ -36,28 +36,28 @@ class StopWatchViewModel: ViewModel() {
             "00:00:00:000"
         );
 
-    // 초기화 블럭
+    // 초기화 블럭.
     init {
         _timerState
             // _timerState가 변경될 때마다 실행되는 코드 블록 정의
             // flatMapLatest는 새로운 Flow를 생성하는 함수를 받아, 이 함수에서 반환한 Flow의 가장 최근 값을 가져와서 방출
             .flatMapLatest { timerState ->
-                getTimerFlow(
+                getTimerFlow( // 정지, 실행, 초기화 등 상태가 바뀔 대 마다 실행
                     isRunning = timerState == TimerState.RUNNING
                 )
             }
-            .onEach { timeDiff ->
+            .onEach { timeDiff -> // flow가 emit될 때마다 실행
                 // 람다식 변수가 하나일 때 it으로 받아서 사용 가능
-                _elapsedTime.update { it + timeDiff}
+                _elapsedTime.update { it + timeDiff} // timeDiff로 _elapsedTime 업데이트
             }
-            .launchIn(viewModelScope)
+            .launchIn(viewModelScope) // viewModel이 활성 상태에서만 동작되도록 보장함
     }
 
     fun toggleIsRunning() {
-        when(timerState.value){
+        when(timerState.value){ // switch문
             TimerState.RUNNING -> _timerState.update { TimerState.PAUSED }
             TimerState.PAUSED,
-            TimerState.RESET -> _timerState.update { TimerState.RUNNING }
+            TimerState.RESET -> _timerState.update { TimerState.RUNNING } // pause또는 reset이면 동작
         }
     }
 
